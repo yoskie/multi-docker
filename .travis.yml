@@ -14,3 +14,11 @@ after_success:
   - docker build -t yoshiki1116/multi-nginx ./nginx
   - docker build -t yoshiki1116/multi-server ./server
   - docker build -t yoshiki1116/multi-worker ./worker
+  #login docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push docker hub
+  - docker push yoshiki1116/multi-cilent
+  - docker push yoshiki1116/multi-nginx
+  - docker push yoshiki1116/multi-server
+  - docker push yoshiki1116/multi-worker
+
