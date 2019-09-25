@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t yoshiki1116/react-test -f ./client/Dockerfile.dev ./client
+
+
+script:
+  - docker run -e CI=true yoshiki1116/react-test npm test
+
+after_success:
+  - docker build -t yoshiki1116/multi-cilent ./client
+  - docker build -t yoshiki1116/multi-nginx ./nginx
+  - docker build -t yoshiki1116/multi-server ./server
+  - docker build -t yoshiki1116/multi-worker ./worker
